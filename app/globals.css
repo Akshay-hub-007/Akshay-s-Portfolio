@@ -3,8 +3,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Project color variables */
+  /* Borders or secondary text */
 }
 
+@theme {
+   --color-primary: #2563EB;
+  --color-accent: #F59E0B; /* Primary - modern blue */
+  --color-white: #FFFFFF;
+  --color-slate: #475569; /* Text or accent gray */
+  --color-light-slate: #CBD5E1;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,11 +22,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Enable class-based theming to work with next-themes (html.dark) */
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
