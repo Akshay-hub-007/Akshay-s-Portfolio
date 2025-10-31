@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import { useEffect, useState } from "react";
 import Projects from "./components/Projects";
+import Certifications from "./components/Certifications";
 
 export default function Home() {
   const { theme, resolvedTheme, setTheme } = useTheme();
@@ -119,6 +120,7 @@ export default function Home() {
           <Skills/>
 
           <Projects/>
+          <Certifications/>
         </motion.div>
       </motion.div>
 
