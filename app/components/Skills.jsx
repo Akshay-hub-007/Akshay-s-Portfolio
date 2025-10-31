@@ -1,24 +1,25 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 
 const skills = [
-  { name: 'CSS3', icon: '🎨', color: 'bg-blue-500' },
-  { name: 'Express', icon: 'ex', color: 'bg-slate-700' },
-  { name: 'Git', icon: '📦', color: 'bg-red-500' },
-  { name: 'GitHub', icon: '🐙', color: 'bg-black' },
-  { name: 'HTML5', icon: '🌐', color: 'bg-orange-500' },
-  { name: 'JavaScript', icon: 'JS', color: 'bg-yellow-400' },
-  { name: 'MongoDB', icon: '🍃', color: 'bg-green-600' },
-  { name: 'Material UI', icon: 'M', color: 'bg-blue-600' },
-  { name: 'Next.js', icon: 'N', color: 'bg-black' },
-  { name: 'Node.js', icon: '⬢', color: 'bg-green-500' },
-  { name: 'React', icon: '⚛', color: 'bg-cyan-400' },
-  { name: 'Redux', icon: '🔄', color: 'bg-purple-600' },
-  { name: 'Figma', icon: '🎯', color: 'bg-pink-500' },
-  { name: 'Tailwind', icon: '💨', color: 'bg-cyan-500' },
-  { name: 'TypeScript', icon: 'TS', color: 'bg-blue-600' },
-  { name: 'Spring Boot', icon: '🍀', color: 'bg-green-500' },
+  { name: 'CSS3', path: '/skills/css3.svg', color: '#2563eb' },
+  { name: 'Express', path: '/skills/express.svg', color: '#475569' },
+  { name: 'Git', path: '/skills/git.svg', color: '#ef4444' },
+  { name: 'GitHub', path: '/skills/github.svg', color: '#0f172a' },
+  { name: 'HTML5', path: '/skills/html5.svg', color: '#f97316' },
+  { name: 'JavaScript', path: '/skills/javascript.svg', color: '#facc15' },
+  { name: 'MongoDB', path: '/skills/mongodb.svg', color: '#16a34a' },
+  { name: 'Material UI', path: '/skills/material-ui.svg', color: '#2563eb' },
+  { name: 'Next.js', path: '/skills/nextjs.svg', color: '#0f172a' },
+  { name: 'Node.js', path: '/skills/nodejs.svg', color: '#22c55e' },
+  { name: 'React', path: '/skills/react.svg', color: '#06b6d4' },
+  { name: 'Redux', path: '/skills/redux.svg', color: '#8b5cf6' },
+  { name: 'Figma', path: '/skills/figma.svg', color: '#ec4899' },
+  { name: 'Tailwind', path: '/skills/tailwind.svg', color: '#06b6d4' },
+  { name: 'TypeScript', path: '/skills/typescript.svg', color: '#2563eb' },
+  { name: 'Spring Boot', path: '/skills/spring.svg', color: '#22c55e' },
 ];
 
 export default function Skills() {
@@ -61,9 +62,22 @@ export default function Skills() {
   return (
     <section
       ref={ref}
-      className="min-h-screen flex flex-col items-center justify-center py-20 px-8 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden dark:from-slate-900 dark:to-slate-950"
+      className="min-h-screen flex flex-col items-center justify-center py-20 px-8 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
       id="skills"
     >
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div 
+          className="absolute top-20 right-20 w-72 h-72 rounded-full filter blur-3xl"
+          style={{ backgroundColor: 'var(--primary)' }}
+        />
+        <div 
+          className="absolute bottom-20 left-20 w-72 h-72 rounded-full filter blur-3xl"
+          style={{ backgroundColor: 'var(--accent)' }}
+        />
+      </div>
+
       <motion.div
         style={{ opacity, y }}
         className="relative z-10 w-full max-w-6xl"
@@ -73,11 +87,18 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-16 text-center md:text-left"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-3 dark:text-slate-100">
+          <h2 
+            className="text-5xl md:text-6xl font-bold mb-3"
+            style={{ color: 'var(--text-primary)' }}
+          >
             My Skills
           </h2>
+          <div 
+            className="w-20 h-1 rounded-full mx-auto md:mx-0"
+            style={{ backgroundColor: 'var(--primary)' }}
+          />
         </motion.div>
 
         <motion.div
@@ -85,7 +106,7 @@ export default function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="flex flex-wrap gap-3 justify-center md:justify-start"
+          className="flex flex-wrap gap-4 justify-center md:justify-start"
         >
           {skills.map((skill) => (
             <motion.div
@@ -98,34 +119,72 @@ export default function Skills() {
               }}
               className="group"
             >
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center justify-center relative overflow-hidden w-20 h-20 dark:bg-slate-800">
+              <div 
+                className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center relative overflow-hidden w-28 h-28 border"
+                style={{ 
+                  backgroundColor: 'var(--bg-primary)',
+                  borderColor: 'var(--border-light)'
+                }}
+              >
                 {/* Hover background effect */}
-                <div className={`absolute inset-0 ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                <motion.div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+                  style={{ backgroundColor: skill.color }}
+                />
                 
-                {/* Icon */}
+                {/* Icon container with white background for visibility */}
                 <motion.div
-                  className="relative z-10 text-3xl mb-2"
+                  className="relative z-10 w-16 h-16 mb-1 flex items-center justify-center rounded-lg bg-white dark:bg-white p-2"
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.3 }}
                 >
-                  {skill.icon.length > 2 ? (
-                    <span className="text-xl font-bold text-slate-700 dark:text-slate-200">{skill.icon}</span>
-                  ) : (
-                    skill.icon
-                  )}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={skill.path}
+                      alt={`${skill.name} icon`}
+                      fill
+                      className="object-contain"
+                      sizes="48px"
+                      onError={(e) => {
+                        // Fallback if image doesn't load
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
                 </motion.div>
                 
-                {/* Skill name - hidden by default, shown on hover */}
-                <motion.p
-                  className="relative z-10 text-xs font-medium text-slate-600 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 dark:text-slate-300"
-                  initial={{ y: 5 }}
-                  whileHover={{ y: 0 }}
+                {/* Skill name */}
+                <p
+                  className="relative z-10 text-xs font-medium text-center px-2"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   {skill.name}
-                </motion.p>
+                </p>
+
+                {/* Accent bar at bottom on hover */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ backgroundColor: skill.color }}
+                />
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Summary text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-16 text-center"
+        >
+          <p 
+            className="text-lg max-w-2xl mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            Always learning and exploring new technologies to build better web experiences.
+          </p>
         </motion.div>
       </motion.div>
     </section>

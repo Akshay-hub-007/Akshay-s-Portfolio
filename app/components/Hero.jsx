@@ -1,18 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 function Hero() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  // Wait for theme + DOM to be ready
-  if (!mounted) return null;
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,16 +28,19 @@ function Hero() {
 
   return (
     <section
-      className="flex flex-col justify-center min-h-screen px-8 text-center md:text-left "
+      className="relative flex flex-col justify-center min-h-screen px-8 text-center md:text-left overflow-hidden"
       id="hero"
+            style={{ backgroundColor: 'var(--bg-primary)' }}
+
     >
       {/* Background animation */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
         <motion.div
-          className="absolute top-1/4 right-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl dark:bg-blue-900/30"
+          className="absolute top-1/4 right-0 w-96 h-96 rounded-full filter blur-3xl"
+          style={{ background: 'var(--accent-blue)' }}
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 8,
@@ -56,10 +49,11 @@ function Hero() {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 left-0 w-96 h-96 bg-indigo-100 rounded-full filter blur-3xl dark:bg-indigo-900/30"
+          className="absolute bottom-1/4 left-0 w-96 h-96 rounded-full filter blur-3xl"
+          style={{ background: 'var(--primary)' }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 10,
@@ -77,18 +71,21 @@ function Hero() {
       >
         <motion.p
           variants={itemVariants}
-          className="text-sm mb-4 font-mono text-indigo-600 tracking-wide dark:text-indigo-400"
+          className="text-sm mb-4 font-mono tracking-wide"
+          style={{ color: 'var(--primary)' }}
         >
           Hi, my name is
         </motion.p>
 
         <motion.h1
           variants={itemVariants}
-          className="text-6xl md:text-8xl font-bold mb-3 text-slate-900 tracking-tight dark:text-slate-100"
+          className="text-6xl md:text-8xl font-bold mb-3 tracking-tight"
+          style={{ color: 'var(--text-primary)' }}
         >
           Akshay Kalangi
           <motion.span
-            className="inline-block text-indigo-600"
+            className="inline-block"
+            style={{ color: 'var(--primary)' }}
             animate={{ rotate: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, delay: 1 }}
           >
@@ -98,7 +95,8 @@ function Hero() {
 
         <motion.h2
           variants={itemVariants}
-          className="text-4xl md:text-6xl font-bold mb-8 text-slate-600 tracking-tight dark:text-slate-300"
+          className="text-4xl md:text-6xl font-bold mb-8 tracking-tight"
+          style={{ color: 'var(--text-secondary)' }}
         >
           I build things for the web.
         </motion.h2>
@@ -107,17 +105,26 @@ function Hero() {
           variants={itemVariants}
           className="max-w-2xl mx-auto md:mx-0"
         >
-          <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+          <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             I&apos;m a{' '}
-            <span className="text-slate-900 font-semibold border-b-2 border-indigo-600 dark:text-slate-100">
+            <span className="font-semibold border-b-2" style={{ 
+              color: 'var(--text-primary)', 
+              borderColor: 'var(--primary)' 
+            }}>
               Full Stack Developer
             </span>{' '}
             at{' '}
-            <span className="text-slate-900 font-semibold border-b-2 border-blue-600 dark:text-slate-100">
+            <span className="font-semibold border-b-2" style={{ 
+              color: 'var(--text-primary)', 
+              borderColor: 'var(--accent-blue)' 
+            }}>
               KL University
             </span>
             , passionate about{' '}
-            <span className="text-slate-900 font-semibold border-b-2 border-violet-600 dark:text-slate-100">
+            <span className="font-semibold border-b-2" style={{ 
+              color: 'var(--text-primary)', 
+              borderColor: 'var(--accent)' 
+            }}>
               AI
             </span>{' '}
             and building scalable web applications.
@@ -126,14 +133,18 @@ function Hero() {
 
         <motion.div
           variants={itemVariants}
-          className="mt-12 flex gap-4 justify-center md:justify-start"
+          className="mt-12 flex flex-wrap gap-4 justify-center md:justify-start"
         >
           <motion.a
             href="#projects"
-            className="px-7 py-3.5 bg-indigo-600 text-white rounded-lg font-medium shadow-lg shadow-indigo-600/30 dark:shadow-indigo-800/40"
+            className="px-7 py-3.5 text-white rounded-lg font-medium shadow-lg"
+            style={{ 
+              background: 'var(--primary)',
+              boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.3)'
+            }}
             whileHover={{ 
               scale: 1.02,
-              boxShadow: "0 20px 25px -5px rgb(79 70 229 / 0.3), 0 8px 10px -6px rgb(79 70 229 / 0.3)"
+              boxShadow: "0 20px 25px -5px rgba(99, 102, 241, 0.4)"
             }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -142,10 +153,15 @@ function Hero() {
           </motion.a>
           <motion.a
             href="#contact"
-            className="px-7 py-3.5 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg font-medium dark:bg-transparent dark:text-indigo-300 dark:border-indigo-300"
+            className="px-7 py-3.5 border-2 rounded-lg font-medium bg-secondary"
+            style={{ 
+              color: 'var(--primary)',
+              borderColor: 'var(--primary)',
+              backgroundColor: 'var(--bg-secondary)'
+            }}
             whileHover={{ 
               scale: 1.02,
-              backgroundColor: "rgb(238 242 255)"
+              backgroundColor: 'var(--bg-tertiary)'
             }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}

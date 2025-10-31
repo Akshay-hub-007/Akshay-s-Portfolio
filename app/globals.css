@@ -1,20 +1,84 @@
 @import "tailwindcss";
 
 :root {
+  /* Light Mode Colors */
   --background: #ffffff;
-  --foreground: #171717;
-
-  /* Project color variables */
-  /* Borders or secondary text */
+  --foreground: #0f172a;
+  
+  /* Primary Brand Colors */
+  --primary: #6366f1;        /* Indigo - main brand color */
+  --primary-dark: #4f46e5;   /* Darker indigo for hover states */
+  --primary-light: #a5b4fc;  /* Light indigo for accents */
+  
+  /* Secondary/Accent Colors */
+  --accent: #8b5cf6;         /* Purple - for highlights */
+  --accent-blue: #3b82f6;    /* Blue - for links/info */
+  --accent-cyan: #06b6d4;    /* Cyan - for success/special */
+  
+  /* Text Colors */
+  --text-primary: #0f172a;   /* Slate 900 - headings */
+  --text-secondary: #475569; /* Slate 600 - body text */
+  --text-muted: #94a3b8;     /* Slate 400 - muted text */
+  
+  /* Background Variations */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;   /* Slate 50 - cards/sections */
+  --bg-tertiary: #f1f5f9;    /* Slate 100 - subtle backgrounds */
+  
+  /* Borders */
+  --border-light: #e2e8f0;   /* Slate 200 */
+  --border-medium: #cbd5e1;  /* Slate 300 */
 }
 
+/* Dark Mode Colors */
+html.dark {
+  --background: #0f172a;      /* Slate 900 */
+  --foreground: #f1f5f9;
+  
+  /* Primary Brand Colors (adjusted for dark mode) */
+  --primary: #818cf8;         /* Lighter indigo for better contrast */
+  --primary-dark: #6366f1;    
+  --primary-light: #4f46e5;   
+  
+  /* Secondary/Accent Colors */
+  --accent: #a78bfa;          /* Lighter purple */
+  --accent-blue: #60a5fa;     /* Lighter blue */
+  --accent-cyan: #22d3ee;     /* Lighter cyan */
+  
+  /* Text Colors */
+  --text-primary: #f1f5f9;    /* Slate 100 */
+  --text-secondary: #cbd5e1;  /* Slate 300 */
+  --text-muted: #64748b;      /* Slate 500 */
+  
+  /* Background Variations */
+  --bg-primary: #0f172a;      /* Slate 900 */
+  --bg-secondary: #1e293b;    /* Slate 800 - cards/sections */
+  --bg-tertiary: #334155;     /* Slate 700 - subtle backgrounds */
+  
+  /* Borders */
+  --border-light: #334155;    /* Slate 700 */
+  --border-medium: #475569;   /* Slate 600 */
+}
+
+/* Theme configuration for Tailwind */
 @theme {
-   --color-primary: #2563EB;
-  --color-accent: #F59E0B; /* Primary - modern blue */
-  --color-white: #FFFFFF;
-  --color-slate: #475569; /* Text or accent gray */
-  --color-light-slate: #CBD5E1;
+  /* Brand Colors */
+  --color-brand-primary: var(--primary);
+  --color-brand-dark: var(--primary-dark);
+  --color-brand-light: var(--primary-light);
+  
+  /* Accent Colors */
+  --color-accent: var(--accent);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-cyan: var(--accent-cyan);
+  
+  /* Semantic Colors */
+  --color-success: #10b981;    /* Green */
+  --color-warning: #f59e0b;    /* Amber */
+  --color-error: #ef4444;      /* Red */
+  --color-info: var(--accent-blue);
 }
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -22,14 +86,51 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Enable class-based theming to work with next-themes (html.dark) */
-html.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Utility classes for consistent usage */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.border-light {
+  border-color: var(--border-light);
+}
+
+.border-medium {
+  border-color: var(--border-medium);
+}
+
+/* Gradient backgrounds for hero sections */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
 }
