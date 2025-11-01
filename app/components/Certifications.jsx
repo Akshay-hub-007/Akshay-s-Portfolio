@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const certifications = [
@@ -7,15 +7,35 @@ const certifications = [
     title: "AWS Certified Cloud Practitioner",
     id: "8c07b37c-979c-4707-8f62-770a1e61c815",
     host: "https://www.credly.com",
+    issuer: "Amazon Web Services",
+    date: "September 2025",
+    color: "#FF9900",
+    // icon: "☁️"
   },
   {
     title: "MongoDB Certified Associate Database Administrator",
     id: "3119ac55-008b-4eea-8881-2d70bd270ad2",
     host: "https://www.credly.com",
+    issuer: "MongoDB",
+    date: "March 2025",
+    color: "#00ED64",
+    // icon: "🍃"
   },
 ]
 
 const Certifications = () => {
+  useEffect(() => {
+    // Load Credly script
+    const script = document.createElement('script');
+    script.src = '//cdn.credly.com/assets/utilities/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,56 +47,200 @@ const Certifications = () => {
   }
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      }
+    },
   }
 
   return (
-    <section className="bg-secondary py-16 px-6 text-center">
+    <section 
+      className="min-h-screen flex flex-col items-center justify-center py-20 px-8 relative overflow-hidden"
+      // style={{ backgroundColor: 'var(--bg-secondary)' }}
+      id="certifications"
+    >
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div 
+          className="absolute top-20 right-20 w-72 h-72 rounded-full filter blur-3xl"
+          style={{ backgroundColor: 'var(--accent)' }}
+        />
+        <div 
+          className="absolute bottom-20 left-20 w-72 h-72 rounded-full filter blur-3xl"
+          style={{ backgroundColor: 'var(--primary)' }}
+        />
+      </div>
+
       <motion.div
-        className="max-w-5xl mx-auto"
+        className="relative z-10 w-full max-w-6xl"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <motion.h2
-          className="text-4xl font-bold text-primary mb-8"
-          variants={cardVariants}
-        >
-          Certifications
-        </motion.h2>
-
+        {/* Section Header */}
         <motion.div
-          className="grid md:grid-cols-2 gap-10 justify-items-center"
+          variants={cardVariants}
+          className="mb-16 text-center"
+        >
+          <h2 
+            className="text-5xl md:text-6xl font-bold mb-3"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            Certifications
+          </h2>
+          <div 
+            className="w-20 h-1 rounded-full mx-auto mb-4"
+            style={{ backgroundColor: 'var(--primary)' }}
+          />
+          <p 
+            className="text-lg max-w-2xl mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            Professional certifications that validate my expertise
+          </p>
+        </motion.div>
+
+        {/* Certifications Grid */}
+        <motion.div
+          className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
         >
           {certifications.map((cert, index) => (
             <motion.div
               key={index}
               variants={cardVariants}
-              className="bg-primary-light/10 border border-medium rounded-2xl p-6 shadow-lg w-[250px] transition-transform hover:-translate-y-2 hover:shadow-xl"
+              whileHover={{ 
+                y: -12,
+                transition: { duration: 0.3 }
+              }}
+              className="group"
             >
-              <div
-                data-iframe-width="200"
-                data-iframe-height="270"
-                data-share-badge-id={cert.id}
-                data-share-badge-host={cert.host}
-              ></div>
-              <h3 className="text-lg font-semibold text-primary mt-4">
-                {cert.title}
-              </h3>
+              <div 
+                className="rounded-2xl overflow-hidden border shadow-lg hover:shadow-2xl transition-all duration-300 h-full"
+                style={{ 
+                  backgroundColor: 'var(--bg-primary)',
+                  borderColor: 'var(--border-light)'
+                }}
+              >
+                {/* Top accent bar */}
+                <motion.div 
+                  className="h-2"
+                  style={{ backgroundColor: cert.color }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                />
+
+                {/* Card Content */}
+                <div className="p-8">
+                  {/* Icon/Badge Area */}
+                  <div className="flex items-center justify-between mb-6">
+                    <motion.div
+                      className="text-5xl"
+                      whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {cert.icon}
+                    </motion.div>
+                    <div 
+                      className="px-3 py-1 rounded-full text-xs font-medium"
+                      style={{
+                        backgroundColor: 'var(--bg-tertiary)',
+                        color: 'var(--text-secondary)'
+                      }}
+                    >
+                      {cert.date}
+                    </div>
+                  </div>
+
+                  {/* Credly Badge Embed */}
+                  <div className="mb-6 flex justify-center">
+                    <div
+                      data-iframe-width="150"
+                      data-iframe-height="180"
+                      data-share-badge-id={cert.id}
+                      data-share-badge-host={cert.host}
+                    ></div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 
+                    className="text-xl font-bold mb-2 leading-tight"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    {cert.title}
+                  </h3>
+
+                  {/* Issuer */}
+                  <p 
+                    className="text-sm mb-4"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Issued by <span className="font-semibold">{cert.issuer}</span>
+                  </p>
+
+                  {/* Verify Button */}
+                  <motion.a
+                    href={`${cert.host}/badges/${cert.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all"
+                    style={{ color: 'var(--primary)' }}
+                    whileHover={{ x: 4 }}
+                  >
+                    Verify Credential
+                    <svg 
+                      className="w-4 h-4" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M9 5l7 7-7 7" 
+                      />
+                    </svg>
+                  </motion.a>
+                </div>
+
+                {/* Bottom shine effect on hover */}
+                <motion.div
+                  className="h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ 
+                    background: `linear-gradient(90deg, transparent, ${cert.color}, transparent)`
+                  }}
+                />
+              </div>
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
 
-      {/* Credly script */}
-      <script
-        type="text/javascript"
-        async
-        src="//cdn.credly.com/assets/utilities/embed.js"
-      ></script>
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <p 
+            className="text-lg"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            Continuously learning and expanding my skill set
+          </p>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

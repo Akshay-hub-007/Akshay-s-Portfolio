@@ -131,7 +131,7 @@ export default function Home() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1 }}
       >
-        {['hero', 'skills'].map((section, index) => (
+        {['hero', 'skills','projects','certifications'].map((section, index) => (
           <motion.a
             key={section}
             href={`#${section}`}
