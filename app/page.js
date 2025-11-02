@@ -3,9 +3,11 @@ import { useTheme } from "next-themes";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
-import { useEffect, useState } from "react";
 import Projects from "./components/Projects";
 import Certifications from "./components/Certifications";
+import GitHub from "./components/GitHub";
+import Contact from "./components/Contact";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { theme, resolvedTheme, setTheme } = useTheme();
@@ -26,6 +28,16 @@ export default function Home() {
   const activeTheme = resolvedTheme || theme;
   const currentTheme = activeTheme ?? 'light';
 
+  // Navigation sections
+  const sections = [
+    { id: 'hero', label: 'Home' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'certifications', label: 'Certifications' },
+    { id: 'github', label: 'GitHub' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
   return (
     <div className="relative">
       {/* Scroll Progress Bar */}
@@ -37,6 +49,7 @@ export default function Home() {
         }}
       />
 
+      {/* Theme Toggle Button */}
       <motion.button
         onClick={() => setTheme(currentTheme === "light" ? "dark" : "light")}
         className="fixed top-6 right-6 p-3 rounded-full shadow-lg transition-all duration-300 z-50 backdrop-blur-sm"
@@ -54,6 +67,7 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
+        aria-label="Toggle theme"
       >
         <motion.span 
           aria-hidden="true" 
@@ -86,6 +100,7 @@ export default function Home() {
           transition: { duration: 0.2 }
         }}
         whileTap={{ scale: 0.9 }}
+        aria-label="Scroll to top"
       >
         <svg 
           className="w-6 h-6" 
@@ -102,42 +117,22 @@ export default function Home() {
         </svg>
       </motion.button>
 
-      {/* Page Content with Smooth Transitions */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Hero/>
-        
-        {/* Smooth section transition */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <Skills/>
-
-          <Projects/>
-          <Certifications/>
-        </motion.div>
-      </motion.div>
-
-      {/* Optional: Floating Navigation Dots */}
+      {/* Floating Navigation Dots */}
       <motion.nav 
         className="fixed left-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-4"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1 }}
+        aria-label="Page navigation"
       >
-        {['hero', 'skills','projects','certifications'].map((section, index) => (
+        {sections.map((section) => (
           <motion.a
-            key={section}
-            href={`#${section}`}
+            key={section.id}
+            href={`#${section.id}`}
             className="group relative"
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
+            aria-label={`Go to ${section.label}`}
           >
             <motion.div
               className="w-3 h-3 rounded-full border-2 transition-colors"
@@ -150,7 +145,7 @@ export default function Home() {
               }}
             />
             <span 
-              className="absolute left-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+              className="absolute left-6 top-1/2 -translate-y-1/2 px-3 py-1 rounded text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -158,11 +153,67 @@ export default function Home() {
                 borderWidth: '1px'
               }}
             >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
+              {section.label}
             </span>
           </motion.a>
         ))}
       </motion.nav>
+
+      {/* Main Content */}
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Hero Section */}
+        <Hero />
+        
+        {/* All Other Sections with Smooth Transitions */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Skills />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Projects />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Certifications />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <GitHub />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Contact />
+        </motion.div>
+      </motion.main>
     </div>
   );
 }

@@ -4,22 +4,34 @@ import { useRef } from 'react';
 import Image from 'next/image';
 
 const skills = [
+  // Frontend Technologies
+  { name: 'HTML5', path: '/skills/html5.svg', color: '#f97316' },
   { name: 'CSS3', path: '/skills/css3.svg', color: '#2563eb' },
+  { name: 'JavaScript', path: '/skills/javascript.svg', color: '#facc15' },
+  { name: 'TypeScript', path: '/skills/typescript.svg', color: '#2563eb' },
+  { name: 'React', path: '/skills/react.svg', color: '#06b6d4' },
+  { name: 'Next.js', path: '/skills/nextjs.svg', color: '#0f172a' },
+  { name: 'Redux', path: '/skills/redux.svg', color: '#8b5cf6' },
+  { name: 'Tailwind CSS', path: '/skills/tailwindcss.svg', color: '#06b6d4' },
+  
+  // Backend Technologies
+  { name: 'Node.js', path: '/skills/nodejs.svg', color: '#22c55e' },
   { name: 'Express', path: '/skills/express.svg', color: '#475569' },
+  { name: 'Python', path: '/skills/python.svg', color: '#3776ab' },
+  { name: 'Django', path: '/skills/django.svg', color: '#092e20' },
+  { name: 'Java', path: '/skills/java.svg', color: '#f89820' },
+  { name: 'Spring Boot', path: '/skills/spring.svg', color: '#22c55e' },
+  
+  // AI & LLM Tools
+  { name: 'LangChain', path: '/skills/langchain.svg', color: '#1C3C3C' },
+  { name: 'LangGraph', path: '/skills/langgraph.png', color: '#FF4B4B' },
+  { name: 'MCP', path: '/skills/mcp.png', color: '#6366f1' },
+  
+  // Database & Tools
+  { name: 'MongoDB', path: '/skills/mongodb.svg', color: '#16a34a' },
+  { name: 'MySQL', path: '/skills/mysql.svg', color: '#00758F' },
   { name: 'Git', path: '/skills/git.svg', color: '#ef4444' },
   { name: 'GitHub', path: '/skills/github.svg', color: '#0f172a' },
-  { name: 'HTML5', path: '/skills/html5.svg', color: '#f97316' },
-  { name: 'JavaScript', path: '/skills/javascript.svg', color: '#facc15' },
-  { name: 'MongoDB', path: '/skills/mongodb.svg', color: '#16a34a' },
-  { name: 'Material UI', path: '/skills/material-ui.svg', color: '#2563eb' },
-  { name: 'Next.js', path: '/skills/nextjs.svg', color: '#0f172a' },
-  { name: 'Node.js', path: '/skills/nodejs.svg', color: '#22c55e' },
-  { name: 'React', path: '/skills/react.svg', color: '#06b6d4' },
-  { name: 'Redux', path: '/skills/redux.svg', color: '#8b5cf6' },
-  { name: 'Figma', path: '/skills/figma.svg', color: '#ec4899' },
-  { name: 'Tailwind', path: '/skills/tailwind.svg', color: '#06b6d4' },
-  { name: 'TypeScript', path: '/skills/typescript.svg', color: '#2563eb' },
-  { name: 'Spring Boot', path: '/skills/spring.svg', color: '#22c55e' },
 ];
 
 export default function Skills() {
@@ -63,7 +75,7 @@ export default function Skills() {
     <section
       ref={ref}
       className="min-h-screen flex flex-col items-center justify-center py-20 px-8 relative overflow-hidden"
-      style={{ backgroundColor: 'var(--bg-primary)' }}
+      // style={{ backgroundColor: 'var(--bg-secondary)' }}
       id="skills"
     >
       {/* Decorative background elements */}
@@ -145,9 +157,11 @@ export default function Skills() {
                       fill
                       className="object-contain"
                       sizes="48px"
+                      unoptimized={skill.path.endsWith('.png')}
                       onError={(e) => {
                         // Fallback if image doesn't load
-                        e.currentTarget.style.display = 'none';
+                        const target = e.currentTarget ;
+                        target.style.display = 'none';
                       }}
                     />
                   </div>

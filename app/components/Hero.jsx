@@ -28,7 +28,7 @@ function Hero() {
 
   return (
     <section
-      className="relative flex flex-col justify-center min-h-screen px-8 text-center md:text-left overflow-hidden"
+      className="relative flex flex-col justify-center min-h-screen px-8 text-center md:text-left overflow-hidden mx-5"
       id="hero"
             style={{ backgroundColor: 'var(--bg-primary)' }}
 
