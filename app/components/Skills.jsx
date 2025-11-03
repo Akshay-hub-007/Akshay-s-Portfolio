@@ -7,7 +7,7 @@ const skills = [
   // Frontend Technologies
   { name: 'HTML5', path: '/skills/html.svg', color: '#f97316' },
   { name: 'CSS3', path: '/skills/css.svg', color: '#2563eb' },
-  { name: 'JavaScript', path: '/skills/javaScript.svg', color: '#facc15' },
+  { name: 'JavaScript', path: '/skills/javascript.svg', color: '#facc15' },
   { name: 'TypeScript', path: '/skills/typescript.svg', color: '#2563eb' },
   { name: 'React', path: '/skills/react.svg', color: '#06b6d4' },
   { name: 'Next.js', path: '/skills/nextjs.svg', color: '#0f172a' },
