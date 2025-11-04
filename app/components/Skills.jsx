@@ -157,15 +157,10 @@ export default function Skills() {
                       fill
                       className="object-contain"
                       sizes="48px"
-                      // Disable Next.js image optimization for PNG and SVG so
-                      // these static files are served as-is. This avoids issues
-                      // on hosts/environments that don't run the image optimizer
-                      // (common cause for images working locally on Windows but
-                      // missing in production).
-                      unoptimized={skill.path.endsWith('.png') || skill.path.endsWith('.svg')}
+                      // Disable Next.js image optimizer for local icons (works better on static hosts/GitHub Pages)
+                      unoptimized
                       onError={(e) => {
-                        // Fallback if image doesn't load: hide the broken image
-                        // (could also replace with a placeholder).
+                        // Fallback if image doesn't load
                         const target = e.currentTarget ;
                         target.style.display = 'none';
                       }}
