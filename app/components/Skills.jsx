@@ -70,7 +70,9 @@ export default function Skills() {
       },
     },
   };
-
+ //orcle certiifcatopn badge 
+ // badges/skills
+ // link 
   return (
     <section
       ref={ref}

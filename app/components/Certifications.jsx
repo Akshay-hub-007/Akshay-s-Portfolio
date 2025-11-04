@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const certifications = [
   {
@@ -10,7 +11,6 @@ const certifications = [
     issuer: "Amazon Web Services",
     date: "September 2025",
     color: "#FF9900",
-    // icon: "☁️"
   },
   {
     title: "MongoDB Certified Associate Database Administrator",
@@ -19,8 +19,16 @@ const certifications = [
     issuer: "MongoDB",
     date: "March 2025",
     color: "#00ED64",
-    // icon: "🍃"
   },
+  {
+    title: "Oracle Cloud Infrastructure Generative AI",
+    id: "D206B379B486CCCAF719A0AA20489C423825A4AC0B92934BAF79767CFFA20E25",
+    host: "https://catalog-education.oracle.com",
+    issuer: "Oracle",
+    date: "November 2025",
+    color: "#F80000",
+    isOracle: true
+  }
 ]
 
 const Certifications = () => {
@@ -32,7 +40,9 @@ const Certifications = () => {
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
@@ -62,7 +72,7 @@ const Certifications = () => {
   return (
     <section 
       className="min-h-screen flex flex-col items-center justify-center py-20 px-8 relative overflow-hidden"
-      // style={{ backgroundColor: 'var(--bg-secondary)' }}
+      style={{ backgroundColor: 'var(--bg-secondary)' }}
       id="certifications"
     >
       {/* Decorative background elements */}
@@ -109,12 +119,12 @@ const Certifications = () => {
 
         {/* Certifications Grid */}
         <motion.div
-          className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
           variants={containerVariants}
         >
           {certifications.map((cert, index) => (
             <motion.div
-              key={index}
+              key={cert.id}
               variants={cardVariants}
               whileHover={{ 
                 y: -12,
@@ -143,13 +153,13 @@ const Certifications = () => {
                 <div className="p-8">
                   {/* Icon/Badge Area */}
                   <div className="flex items-center justify-between mb-6">
-                    <motion.div
+                    {/* <motion.div
                       className="text-5xl"
                       whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     >
                       {cert.icon}
-                    </motion.div>
+                    </motion.div> */}
                     <div 
                       className="px-3 py-1 rounded-full text-xs font-medium"
                       style={{
@@ -161,14 +171,28 @@ const Certifications = () => {
                     </div>
                   </div>
 
-                  {/* Credly Badge Embed */}
+                  {/* Badge Embed */}
                   <div className="mb-6 flex justify-center">
-                    <div
-                      data-iframe-width="150"
-                      data-iframe-height="180"
-                      data-share-badge-id={cert.id}
-                      data-share-badge-host={cert.host}
-                    ></div>
+                    {cert.isOracle ? (
+                      <div className="w-[150px] h-[180px] flex items-center justify-center bg-white rounded-lg p-4">
+                        <div className="relative w-full h-full">
+                          <Image 
+                            src="/badges/oracle.png" 
+                            alt="Oracle Certification Badge"
+                            fill
+                            className="object-contain"
+                            unoptimized
+                          />
+                        </div>
+                      </div>
+                    ) : ( 
+                      <div
+                        data-iframe-width="150"
+                        data-iframe-height="180"
+                        data-share-badge-id={cert.id}
+                        data-share-badge-host={cert.host}
+                      ></div>
+                    )}
                   </div>
 
                   {/* Title */}
@@ -189,7 +213,10 @@ const Certifications = () => {
 
                   {/* Verify Button */}
                   <motion.a
-                    href={`${cert.host}/badges/${cert.id}`}
+                    href={cert.isOracle 
+                      ? `${cert.host}/ords/certview/sharebadge?id=${cert.id}`
+                      : `${cert.host}/badges/${cert.id}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all"
