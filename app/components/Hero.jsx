@@ -30,36 +30,22 @@ function Hero() {
     <section
       className="relative flex flex-col justify-center min-h-screen px-8 text-center md:text-left overflow-hidden mx-5"
       id="hero"
-            style={{ backgroundColor: 'var(--bg-primary)' }}
-
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+      aria-label="Hero section"
     >
       {/* Background animation */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true">
         <motion.div
           className="absolute top-1/4 right-0 w-96 h-96 rounded-full filter blur-3xl"
           style={{ background: 'var(--accent-blue)' }}
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute bottom-1/4 left-0 w-96 h-96 rounded-full filter blur-3xl"
           style={{ background: 'var(--primary)' }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
       </div>
 
@@ -101,30 +87,34 @@ function Hero() {
           I build things for the web.
         </motion.h2>
 
-        <motion.div
-          variants={itemVariants}
-          className="max-w-2xl mx-auto md:mx-0"
-        >
+        <motion.div variants={itemVariants} className="max-w-2xl mx-auto md:mx-0">
           <p className="text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             I&apos;m a{' '}
-            <span className="font-semibold border-b-2" style={{ 
-              color: 'var(--text-primary)', 
-              borderColor: 'var(--primary)' 
-            }}>
-              Full Stack Developer
+            <span
+              className="font-semibold border-b-2"
+              style={{ color: 'var(--text-primary)', borderColor: 'var(--primary)' }}
+            >
+              B.Tech student
             </span>{' '}
             at{' '}
-            <span className="font-semibold border-b-2" style={{ 
-              color: 'var(--text-primary)', 
-              borderColor: 'var(--accent-blue)' 
-            }}>
+            <span
+              className="font-semibold border-b-2"
+              style={{ color: 'var(--text-primary)', borderColor: 'var(--accent-blue)' }}
+            >
               KL University
             </span>
+            , aspiring{' '}
+            <span
+              className="font-semibold border-b-2"
+              style={{ color: 'var(--text-primary)', borderColor: 'var(--primary)' }}
+            >
+              Full-Stack Developer
+            </span>
             , passionate about{' '}
-            <span className="font-semibold border-b-2" style={{ 
-              color: 'var(--text-primary)', 
-              borderColor: 'var(--accent)' 
-            }}>
+            <span
+              className="font-semibold border-b-2"
+              style={{ color: 'var(--text-primary)', borderColor: 'var(--accent)' }}
+            >
               AI
             </span>{' '}
             and building scalable web applications.
@@ -138,33 +128,27 @@ function Hero() {
           <motion.a
             href="#projects"
             className="px-7 py-3.5 text-white rounded-lg font-medium shadow-lg"
-            style={{ 
+            style={{
               background: 'var(--primary)',
-              boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.3)'
+              boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.3)',
             }}
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 20px 25px -5px rgba(99, 102, 241, 0.4)"
-            }}
+            whileHover={{ scale: 1.02, boxShadow: '0 20px 25px -5px rgba(99, 102, 241, 0.4)' }}
             whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
             View My Work
           </motion.a>
           <motion.a
             href="#contact"
             className="px-7 py-3.5 border-2 rounded-lg font-medium bg-secondary"
-            style={{ 
+            style={{
               color: 'var(--primary)',
               borderColor: 'var(--primary)',
-              backgroundColor: 'var(--bg-secondary)'
+              backgroundColor: 'var(--bg-secondary)',
             }}
-            whileHover={{ 
-              scale: 1.02,
-              backgroundColor: 'var(--bg-tertiary)'
-            }}
+            whileHover={{ scale: 1.02, backgroundColor: 'var(--bg-tertiary)' }}
             whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
             Contact Me
           </motion.a>
